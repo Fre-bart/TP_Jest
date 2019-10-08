@@ -84,3 +84,25 @@ describe('union', function () {
     });
 
 });
+
+describe('intersection', function () {
+
+    test('Test [1,5] intersect [2,7] equal [2,5]', () => {
+        var interval1 = new Interval(1,5);
+        var interval2 = new Interval(2,7);
+        var res = new Interval(2,5);
+        expect(interval1.intersection(interval2)).toEqual(res);
+    });
+
+    test('Test [1,5] intersect [6,8] equal null', () => {
+        var interval1 = new Interval(1,5);
+        var interval2 = new Interval(6,8);
+        expect(interval1.intersection(interval2)).toBeNull();
+    });
+
+    test('Test [2,9] intersect [3,5] equal [[3,5]]', () => {
+        var interval1 = new Interval(2,9);
+        var interval2 = new Interval(3,5);
+        expect(interval1.intersection(interval2)).toEqual(interval2);
+    });
+});
