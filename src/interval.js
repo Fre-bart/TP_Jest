@@ -116,9 +116,19 @@ class Interval {
      * @param {Interval} interval
      * @returns {Interval|null}
      */
-    intersection(interval) {
+     intersection(interval) {
+       var max = Math.max;
+       var min = Math.min;
+       var res = new Interval();
 
-    };
+       res.start = max(this.start, interval.start);
+       res.end = min(this.end, interval.end);
+
+       if (res.start > res.end) {
+         return null;
+       }
+       return res;
+     };
 
     /**
      * Retourne l'exclusion de deux intervals
