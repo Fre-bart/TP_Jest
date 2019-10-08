@@ -106,3 +106,37 @@ describe('intersection', function () {
         expect(interval1.intersection(interval2)).toEqual(interval2);
     });
 });
+
+describe('exclusion', function () {
+
+    test('Test résultat retourné est un array', () => {
+      var interval1 = new Interval(3,9);
+      var interval2 = new Interval(2,5);
+      expect(Array.isArray(interval1.exclusion(interval2))).toBe(true);
+    });
+
+    test('Test [2,9] exclusion [3,5] equal [[2,3],[5,9]]', () => {
+        var interval1 = new Interval(2,9);
+        var interval2 = new Interval(3,5);
+        var res1 = new Interval(2,3);
+        var res2 = new Interval(5,9);
+        var tab = [res1,res2];
+        expect(interval1.exclusion(interval2)).toEqual(tab);
+    });
+
+    test('Test [1,3] exclusion [4,8] equal [[1,3],[4,8]]', () => {
+        var interval1 = new Interval(1,3);
+        var interval2 = new Interval(4,8);
+        var tab = [interval1,interval2];
+        expect(interval1.exclusion(interval2)).toEqual(tab);
+    });
+
+    test('Test [1,8] exclusion [1,3] equal [[3,8]]', () => {
+        var interval1 = new Interval(1,8);
+        var interval2 = new Interval(1,3);
+        var interval3 = new Interval(3,8)
+        var tab = [interval3];
+        expect(interval1.exclusion(interval2)).toEqual(tab);
+    });
+
+});
