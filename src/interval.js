@@ -62,9 +62,43 @@ class Interval {
      * @param {Interval} interval
      * @returns {Interval[]}
      */
-    union(interval) {
+     union(interval) {
+       var tab = [];
+       var res = new Interval();
 
-    };
+       if(this.includes(interval)){
+         res.start=this.start
+         res.end=this.end
+         tab.push(res)
+       }
+       else if(interval.includes(this)){
+         res.start=interval.start
+         res.end=interval.end
+         tab.push(res)
+       }
+       else {
+         if(this.overlaps(interval)){
+             if(this.start<interval.start)
+               res.start=this.start
+             else
+               res.start = interval.start
+
+             if(this.end>interval.end)
+               res.end = this.end
+             else
+               res.end = interval.end
+         tab.push(res)
+       }
+         else{
+           tab.push(this);
+           tab.push(interval);
+         }
+       }
+
+       return tab;
+
+
+     };
 
     /**
      * Retourne l'intersection de deux intervals
