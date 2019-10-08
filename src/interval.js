@@ -146,9 +146,34 @@ class Interval {
      * @param {Interval} interval
      * @returns {Interval[]}
      */
-    exclusion(interval) {
+     exclusion(interval) {
+       var res = []
+       var union = this.union(interval);
+       var intersec = this.intersection(interval);
 
-    };
+
+       if(this.overlaps(interval)){
+         var inter1 = new Interval();
+         var inter2 = new Interval();
+
+         inter1.start = union[0].start
+         inter1.end = intersec.start
+         inter2.start = intersec.end
+         inter2.end = union[0].end
+
+         if(inter1.start!=inter1.end)
+           res.push(inter1)
+         res.push(inter2)
+
+       }
+       else{
+         res.push(this)
+         res.push(interval)
+       }
+
+       return res;
+
+     };
 }
 
 module.exports = Interval;
