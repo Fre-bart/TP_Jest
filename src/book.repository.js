@@ -15,14 +15,18 @@ class BookRepository {
      * Nombre total de livre
      */
     getTotalCount() {
-      return this.db.get('books').size().value();      
+      return this.db.get('books').size().value();
     }
 
     /**
      * Somme du prix de tous les livre
      */
     getTotalPrice() {
-
+      var prices = this.db.get('books').map('price').value();
+      var s=0
+      for(var i=0;i<prices.length;i++)
+        s=s+prices[i]
+      return s
     }
 
 
