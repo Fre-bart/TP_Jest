@@ -43,3 +43,31 @@ describe('Nombre total de libre', function () {
         expect(repository.getTotalCount()).toBe(0);
     });
 });
+
+describe('Somme du prix de tous les livre', function () {
+
+  test('Fonction value appelée 1 fois ', () => {
+
+    const dbMock = {
+        get : jest.fn().mockReturnThis(),
+        map : jest.fn().mockReturnThis(),
+        value : jest.fn().mockReturnValue(0)
+    };
+      const repository = new BookRepository(dbMock);
+      repository.getTotalPrice();
+
+      expect(dbMock.value.mock.calls.length).toBe(1);
+  });
+
+    test('Somme des prix', () => {
+
+      const dbMock = {
+          get : jest.fn().mockReturnThis(),
+          map : jest.fn().mockReturnThis(),
+          value : jest.fn().mockReturnValue([20,30])
+      };
+        const repository = new BookRepository(dbMock);
+
+        expect(repository.getTotalPrice()).toBe(50);
+    });
+});
