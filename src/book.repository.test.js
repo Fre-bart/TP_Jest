@@ -71,3 +71,35 @@ describe('Somme du prix de tous les livre', function () {
         expect(repository.getTotalPrice()).toBe(50);
     });
 });
+
+describe('Retourne un livre selon le nom', function () {
+
+  test('Fonction value appelée 1 fois ', () => {
+
+    const dbMock = {
+        get : jest.fn().mockReturnThis(),
+        find : jest.fn().mockReturnThis(),
+        value : jest.fn().mockReturnValue(0)
+    };
+      const repository = new BookRepository(dbMock);
+      repository.getBookByName();
+
+      expect(dbMock.value.mock.calls.length).toBe(1);
+  });
+
+    test('Retourne un livre à partir de son nom', () => {
+
+      var book = {
+          'id' : 1,
+          "name" :"Misérable",
+      }
+      const dbMock = {
+          get : jest.fn().mockReturnThis(),
+          find : jest.fn().mockReturnThis(),
+          value : jest.fn().mockReturnValue(book)
+      };
+        const repository = new BookRepository(dbMock);
+
+        expect(repository.getBookByName()).toEqual(book);
+    });
+});
